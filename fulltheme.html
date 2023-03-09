@@ -1,0 +1,1013 @@
+<!-- 
+
+NPF theme prototype by eggdesign
+theme layout is based off of my base code
+
+-->
+<!DOCTYPE html> 
+<html> 
+    <head>
+     <link rel="shortcut icon" href="{Favicon}" />
+     <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+        <title>{Title}</title>
+        {block:Description}
+            <meta name="description" content="{MetaDescription}" />
+        {/block:Description}
+        {NewPostStyles}
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+      {block:Options}
+        <meta name="image:background" content="" />
+        <meta name="color:background" content="#f8f8f8" />
+        <meta name="color:text" content="#222" />
+        <meta name="color:border" content="#222"/>
+        <meta name="color:sidebar header" content="#facade" />
+        <meta name="color:posts" content="#fff" />
+        <meta name="color:links" content="#000" />
+        <meta name="if:full background" content="" />
+    {/block:Options}
+    <link rel="stylesheet" type="text/css" href="https://assets.tumblr.com/fonts/favorit/stylesheet.css?v=1">
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+    <style>
+/* Theme Options */
+        :root {
+            --background-image: url({image:background});
+            --background-color: {color:background};
+            --spacing-sm: .6rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --posts: {color:posts};
+            --text: {color:text};
+            --borders: {color:border};
+            --links: {color:links};
+            --accent: {AccentColor};
+            --title-font: {TitleFont};
+            --header-image: url({headerImage});
+        }
+        
+* {
+     box-sizing:border-box;
+}
+ body {
+     margin:0;
+     background-color: var(--background-color);
+     background-image:var(--background-image);
+     {block:iffullbackground}
+     background-size:cover;
+     {/block:iffullbackground}
+     background-attachment:fixed;
+    font-family: Favorit;
+     word-wrap:break-word;
+     font-size: 16px;
+}
+ .flex {
+     display:flex;
+     flex-wrap:wrap;
+}
+ .centered {
+     align-items:center;
+     justify-content:center;
+}
+ .align-center {
+     align-items:center;
+}
+ blockquote {
+     border-left:2px solid var(--borders);
+     padding-left:var(--spacing-sm);
+     margin:0 0 0 var(--spacing-md);
+}
+ main {
+     width:100%;
+     margin:auto;
+     max-width:1230px;
+     justify-content:space-around;
+     align-items:flex-start;
+}
+ section {
+     width:calc(100% - 400px);
+}
+
+ p:empty {
+     display:none;
+}
+ .tags {
+     width:100%;
+     padding-top:0;
+}
+ .info {
+     justify-content:space-between;
+}
+ .like-and-reblog {
+     width:50px;
+     justify-content:space-between;
+}
+ article h1 {
+     margin:0;
+}
+
+article video {
+    max-width:100%;
+}
+
+.sidebar-container {
+    background:var(--posts);
+    border:1px solid var(--borders);
+    border-radius:var(--spacing-sm);
+    border:1px solid var(--borders);
+    
+}
+ article, #post-pagination {
+     background:var(--posts);
+     max-width:540px;
+     width:90%;
+     border:1px solid var(--borders);
+     border-radius:var(--spacing-sm);
+     margin:calc(var(--spacing-lg) * 4) auto;
+}
+
+.permalink-page article {
+    margin-bottom:var(--spacing-lg);
+}
+
+#post-pagination {
+    margin-top:0;
+}
+ ol.notes li {
+     padding:10px;
+     list-style:none;
+}
+ ol.notes img {
+     display:none;
+}
+ article img {
+     max-width:100%;
+     display:block;
+}
+ a {
+     text-decoration:none;
+     color:var(--links);
+}
+ aside {
+     max-width:300px;
+     height:100vh;
+     position:sticky;
+     align-content:center;
+     top:0;
+     text-align:center;
+}
+ aside header {
+     width: 100%;
+}
+ .side-container {
+     overflow:hidden;
+     border-radius:var(--spacing-sm);
+     background:var(--posts);
+     color:var(--text);
+     border:1px solid var(--borders);
+}
+ .show-header {
+     aspect-ratio: 3 / 1;
+     background:var(--header-image);
+     background-size:cover;
+     background-position:center bottom;
+     align-items:flex-end!important;
+     margin-bottom:32px;
+}
+ .avatar {
+     width:64px;
+}
+	    
+.circle {
+	border-radius: 50%;
+}
+ .show-header .avatar {
+     transform:translateY(32px);
+}
+ .description, .links {
+     padding:var(--spacing-md);
+     text-align:center;
+}
+ .links {
+     padding-top:0;
+     line-height:1.4;
+     font-weight:600;
+}
+ .links a {
+     margin:0 var(--spacing-sm);
+}
+ @media only screen and (max-width: 1100px) {
+     aside {
+         position:relative;
+         width:100%;
+         left:auto;
+         max-width:700px;
+         margin:50px auto;
+    }
+     .show-header {
+         aspect-ratio: 5 / 1;
+    }
+     section {
+         width:100%;
+    }
+     article {
+         margin:100px auto;
+    }
+}
+ 
+ .pagination {
+     width:100%;
+     margin-bottom:var(--spacing-lg);
+}
+
+.text-content, .reblog-header, .post-info, .tags {
+      padding:var(--spacing-sm) var(--spacing-md);
+}
+
+.tags a {
+    opacity:.68;
+    margin-right:4px;
+}
+
+.tags a:hover {
+    opacity:1;
+}
+
+.reblog-header:not(:first-of-type) {
+    border-top:1px solid var(--borders);
+}
+
+.post-link {
+    display:block;
+    width:calc(100% - (var(--spacing-md) * 2));
+    margin:var(--spacing-md);
+    border:1px solid var(--links);
+    border-radius:.4rem;
+}
+
+.post-link span {
+    display:block;
+    color:var(--text);
+    padding:var(--spacing-sm);
+}
+
+.link-source {
+    font-size:.86rem;
+    text-transform:uppercase;
+    opacity:.6;
+    transition:.6s;
+}
+
+.post-link span:last-child {
+    padding-top:0;
+}
+.poster-content{
+    height:100px;
+    position:relative;
+    background-size:100%;
+    background-position:center;
+    display:flex;
+    transition:.6s ease-in-out;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+}
+
+.poster-with-image {
+    height:250px;
+}
+
+.poster-content span {
+    color:white;
+    font-size:1.4rem;
+    z-index:1;
+}
+
+.poster-content:before {
+    content:'';
+    transition:.6s;
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.34);
+}
+
+.poster-content:hover:before {
+    background:rgba(0,0,0,.46);
+
+}
+
+.post-link:hover .poster-content {
+    transition:.6s ease-in-out;
+    background-size:110%!important;
+}
+
+.post-link:hover .link-source {
+    opacity:1;
+    color:var(--links);
+}
+
+.content.ask {
+    padding:var(--spacing-md);
+}
+.question {
+    border:1px solid var(--borders);
+    margin:var(--spacing-md);
+    margin-right:0;
+    width:calc(100% - (50px + (var(--spacing-md) * 2)));
+}
+
+.asker {
+    display:block;
+    padding:var(--spacing-md);
+}
+
+.ask > img {
+    margin:var(--spacing-md) 6px 0 0;
+    width:36px;
+}
+
+.ask {
+    display:flex;
+    align-items:flex-start;
+    flex-wrap:wrap;
+}
+
+.ask .text-content {
+    width:100%;
+}
+
+.poll-option {
+    background:var(--links);
+    color:var(--posts);
+    display:block;
+    padding:var(--spacing-md);
+    margin:var(--spacing-md) 0;
+    border-radius:2rem;
+}
+
+.reblog-header, .poll {
+    padding:var(--spacing-md);
+}
+
+.text-content:empty {
+    display:none;
+}
+
+.indented {
+    margin-left:var(--spacing-md);
+    padding-left:var(--spacing-md);
+    border-left:2.4px solid rgba(0,0,0,.08);
+}
+
+.row-size-1 > div {
+    width:100%;
+}
+.row-size-3 > div {
+    width:calc(100% / 3);
+}
+.row-size-2 > div {
+    width:50%;
+}
+
+
+.content-rows > div img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.content-rows {
+    justify-content:space-between;
+}
+
+.unordered-list-item {
+    margin-left:var(--spacing-lg);
+    list-style-type: disc;
+}
+
+article p {
+    margin:0;
+}
+
+.pagination {
+    opacity:0;
+    padding:var(--spacing-md);
+    animation-delay:1s;
+    text-align:center;
+    animation: fadeIn 1s forwards;
+}
+
+.pagination > * {
+    display:inline-block;
+    margin:var(--spacing-sm);
+}
+
+.chat {
+    font-family: monospace;
+}
+
+.quirky {
+    font-family:Fairwater;
+    font-size:1.2rem;
+}
+
+.heading1 {
+    font-size:2rem;
+    font-weight:bold;
+}
+.heading2 {
+    font-size:1.7rem;
+    font-weight:bold;
+}
+.quote {
+    font-family:Georgia;
+    font-size:1.2rem;
+}
+@keyframes fadein {
+    to {opacity :1};
+}
+
+.unordered-list-item {
+    margin-left:var(--spacing-lg);
+    list-style-type: disc;
+}
+
+
+.reblog-header a, .checkmarks {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    position:relative;
+}
+
+.reblog-header .user-avatar {
+    margin:0 6px 0 0;
+    width:32px;
+    border-radius:.2rem;
+}
+
+.audio-wrapper iframe {
+    height:180px;
+    width:100%;
+    margin-bottom:-1.4rem;
+}
+
+.spotify_audio_player {
+    padding:var(--spacing-sm);
+}
+
+.tumblr_audio_player {
+    height:120px!important;
+}
+
+.video-iframe {
+    width:calc(100% - (var(--spacing-md) * 2));
+    margin:var(--spacing-md);
+    border:0;
+}
+
+.checkmarks {
+    margin-left:4px;
+}
+
+.checkmark {
+    margin-right:4px;
+}
+
+.checkmark img, .checkmark {
+    width:14px;
+    height:14px;
+}
+
+.big-checkmarks .checkmarks {
+    flex-grow: 1;
+    margin-left:0;
+}
+
+.big-checkmarks .checkmark {
+    position:absolute;
+    margin-left:-4px;
+}
+
+.active-false:after, .broken-blog:after{
+    content:'deactivated';
+    opacity:.4;
+    margin-left:6px;
+    font-style:italic;
+}
+
+.reblog-header:not(.original-poster) .usernames:before {
+    content: "\f079";
+    font-family:"Font Awesome 5 Free";
+    font-weight:bold;
+    position:absolute;
+    background:mediumseagreen;
+    color:white;
+    font-size:.68rem;
+    padding:.2rem;
+    transform:translate(-2rem, 1rem);
+    border-radius:.34rem;
+}
+        
+.reblog-header:not(.original-poster) :is(.broken-blog, .active-false):before {
+    position:relative;    
+    margin-right:10px ;
+}
+
+.reblog-header:not(.original-poster)  .usernames {
+    margin-left:10px;
+}
+        
+.reblog-header:not(.original-poster) :is(.broken-blog, .active-false) {
+    margin:0;        
+}
+
+{CustomCSS}
+    </style>    
+    </head>
+    <body class="{block:homepage}home{/block:homepage}{block:tagpage}tag{/block:tagpage}{block:searchpage}search{/block:searchpage}{block:submitpage}submit-{/block:submitpage}{block:AskPage}ask{/block:AskPage}{block:permalinkpage}permalink{/block:permalinkpage}-page">
+<!-- main container -->    
+    <main class="flex">
+        <aside class="flex centered">
+            <div class="sidebar-container">
+<!-- global theme options/blog info -->            
+            <header class="flex centered {block:ShowHeaderImage}show-header{block:ShowHeaderImage}">
+                <img src="{portraiturl-96}" class="avatar {AvatarShape}">
+            </header>
+            {block:ShowDescription}
+            <div class="text-content">
+                {Description}
+            </div>
+            {/block:ShowDescription}
+            <div class="links text-content">
+                <a href="/">{lang:Home}</a>
+                {block:askenabled}
+                <a href="/ask">Ask</a>
+                {/block:askenabled}
+                {block:submissionsenabled}
+                <a href="/submit">Submit</a>
+                {/block:submissionsenabled}
+                <a href="/archive">Archive</a>
+                {block:HasPages}
+                    {block:Pages}
+                        <a href="{URL}">{Label}</a>
+                    {/block:Pages}
+                {/block:HasPages}
+                </div>
+            </div>
+        </aside>
+<!-- posts -->        
+        <section>
+        <div id="posts"></div>
+         {block:PermalinkPagination} 
+        <div id="post-pagination">
+            {block:PreviousPost}
+            <a href="{PreviousPost}">Previous Post</a>
+            {/block:PreviousPost}
+            {block:NextPost}
+            <a href="{NextPost}">Next Post</a>
+            {/block:NextPost} 
+        </div>
+      {/block:PermalinkPagination}
+        {block:Pagination}
+            <div class="pagination flex centered">
+                {block:previouspage}
+                <a href="{previouspage}">Prev</a>
+                {/block:previouspage}
+                {block:nextpage}
+                <a href="{nextpage}">Next</a>
+                {/block:nextpage}
+            </div>
+        {/block:pagination}
+        </section> 
+    </main>
+</body>
+
+<script>
+let user = '{name}'
+let container = document.getElementById('posts')
+let posts = new Array()
+let pagination = document.getElementById('post-pagination')
+// create the post info
+    {block:Posts}
+    posts.push({
+        id: '{PostID}', 
+        postNotes: '{postNotesURL}', 
+        permalink: '{Permalink}', 
+        noteCount: '{NoteCountWithLabel}', 
+        npf: {NPF}, 
+        date: '{TimeAgo}' {block:HasTags}, 
+        tags: [{block:Tags}`{Tag}`,{/block:Tags}]{/block:HasTags} 
+    })
+    {/block:Posts}
+    
+// formats text blocks   
+function createText(content) {
+    if (content.text === '') return ''
+    let output = ""
+    // if there is formatted content
+    if (content.formatting) {
+        let characters = Array.from(content.text.split(''))
+        for (const [i, text] of characters.entries()) {
+            const char = content.text[i]
+            // look for end of format
+            const endFormatTypes = content.formatting.filter((f) => f.end === i);
+            // for each type, create a closing tag
+            for (const f of endFormatTypes) {
+                if (f.type === "link") {
+                    output += "</a>"
+                }
+                if (f.type === "color") {
+                    output += "</span>"
+                }
+                if (f.type === "bold") {
+                    output += "</b>"
+                }
+                if (f.type === "small") {
+                    output += "</span>"
+                }
+                if (f.type === "mention") {
+                    output += "</a>"
+                }
+                if (f.type === "italic") {
+                    output += "</i>"
+                }
+            }
+            // look for start of format
+            const startFormatTypes = content.formatting.filter((f) => f.start === i);
+            // for each type, create an opening tag 
+            for (const f of startFormatTypes) {
+                if (f.type === "link") {
+                    output += `<a href="${f.url}">`
+                }
+                if (f.type === "color") {
+                    output += `<span style="color:${f.hex}">`
+                }
+                if (f.type === "bold") {
+                    output += `<b>`
+                }
+                if (f.type === "small") {
+                    output += `<span style="font-size:.8rem">`
+                }
+                if (f.type === "mention") {
+                    output += `<a className="mention" href="${f.blog.url}">`;
+                }
+                if (f.type === "italic") {
+                    output += `<i>`
+                }
+            }
+            output += char
+        }
+    }
+    // if no formatting, just output the text 
+    else {
+        output += content.text
+    }
+    // might scrap this part
+    if (content.subtype === "unordered-list-item") {
+        let li = document.createElement('li')
+        li.classList.add(content.subtype)
+        li.innerHTML = output
+        return li
+    }
+    // create an element to put the formatted text in, and then return it  
+    else {
+        let p = document.createElement('p')
+        p.classList.add(content.subtype)
+        p.innerHTML = output
+        return p
+    }
+}
+
+
+// create audio posts 
+function createAudio(content) {
+    let audioWrapper = document.createElement('div')
+    audioWrapper.classList.add('audio-wrapper')
+    let audioPost = document.createElement('div')
+    audioPost.classList.add('audio-container')
+    audioWrapper.innerHTML = content.embed_html
+    return audioWrapper
+}
+
+// create polls
+function createPoll(content, permalink) {
+    let id = permalink.substring(permalink.lastIndexOf("/") + 1);
+    let poll = document.createElement('div')
+    poll.classList.add('poll')
+    poll.append(content.question)
+    content.answers.map((answers) => {
+        let answer = document.createElement('a')
+        answer.classList.add('poll-option')
+        answer.target = "_blank"
+        answer.href = `https://tumblr.com/${ user }/${ id }`
+        answer.innerHTML = answers.answer_text
+        poll.append(answer)
+    })
+    return poll
+}
+
+// create links
+function createLink(content) {
+    let link = document.createElement('a')
+    link.classList.add('post-link')
+    link.href = content.url
+    let poster = content.poster 
+    let posterImage = document.createElement('div')
+    posterImage.classList.add('poster-content')
+    if (poster) {
+        posterImage.classList.add('poster-with-image')
+        posterImage.style.backgroundImage = `url(${content.poster[0].url})`
+        posterImage.innerHTML = `<span class="link-title">${content.title}`
+    } else {
+        posterImage.innerHTML = `<b>${content.title}</b>`
+    }
+    link.append(posterImage)
+    if (content.description) {
+        let description = document.createElement('span')
+        description.textContent = content.description
+        link.append(description)
+    }
+    let source = document.createElement('span')
+    source.classList.add('link-source')
+    source.innerHTML = `${content.site_name != null ? content.site_name : ''} | ${content.author != null ? content.author : ''}`
+
+    if (content.author && content.site_name) link.append(source)
+    return link
+}
+
+
+// create content insie of each row  
+function createRow(content, permalink) {
+    // sort through content types      
+    switch (content.type) {
+        case 'text':
+            let textWrapper = document.createElement('div')
+            textWrapper.classList.add('text-content')
+            textWrapper.append(createText(content))
+            return textWrapper
+            break;
+
+        case 'image':
+            let image = document.createElement('img')
+            let anchor = document.createElement('a')
+            image.src = content.media[0].url
+            anchor.append(image)
+            return anchor
+            break;
+
+        case 'audio':
+            return createAudio(content)
+            break;
+
+        case 'link':
+            return createLink(content)
+            break;
+
+        case 'video':
+            if (content.provider === 'tumblr') {
+                let video = document.createElement('video')
+                video.src = content.url
+                video.controls = true
+                return video
+
+            } else {
+                let video = document.createElement('iframe')
+                video.classList.add('video-iframe')
+                video.src = content.embed_iframe.url
+                video.style.aspectRatio = `${content.embed_iframe.width} / ${content.embed_iframe.height}`
+                return video
+            }
+            break;
+
+        case 'poll':
+            return createPoll(content, permalink)
+            break;
+
+        // in case there are new post types/types that were missed
+        default:
+            return `this ${content.type} npf block is not supported yet`
+    }
+}
+
+// create each row  
+function createRows(id, content, layout, permalink, trail = null) {
+    let rows = document.createElement('div')
+    rows.classList.add('content')
+    // if there are indexes with asks 
+    let asks = []
+    // if there are layouts
+    if (layout.length) {
+        // if there are rows
+        let hasRows = layout.every(v => v.type === 'rows');
+        layout.map((layout) => {
+            if (hasRows) {
+                // if there are displays 
+                if (layout.display) {
+                    // create individual rows
+                    layout.display.map((display) => {
+                        let row = document.createElement('div')
+                        row.classList.add(`flex`, `content-rows`, `row-size-${display.blocks.length}`)
+
+                        // if there is inner content in a row 
+                        if (display.blocks) {
+                            display.blocks.map((block) => {
+                                let innerRow = document.createElement('div')
+                                innerRow.append(createRow(content[block], permalink))
+                                row.append(innerRow)
+                                rows.append(row)
+                            })
+                        }
+
+                    })
+                }
+
+            }
+            // if there are no rows
+            else {
+                // if layout is an ask
+                if (layout.type === 'ask') {
+                    let ask = document.createElement('div')
+                    ask.classList.add('question')
+                    let asker = document.createElement('a')
+                    let askerIcon = document.createElement('img')
+                    asker.classList.add('asker')
+                    if (layout.attribution) {
+                        asker.innerHTML = `${layout.attribution.blog.name} asked`
+                        askerIcon.src = `https://api.tumblr.com/v2/blog/${layout.attribution.blog.name}/avatar/64`
+                    } else {
+                        askerIcon.src = "https://assets.tumblr.com/pop/src/assets/images/avatar/anonymous_avatar_96-223fabe0.png"
+                        asker.innerHTML = `<span>anonymous asked</span>`
+                    }
+                    rows.append(askerIcon)
+                    ask.append(asker)
+                    rows.classList.add('ask')
+                    asks = layout.blocks
+                    if (layout.blocks) {
+                        layout.blocks.map((block) => {
+                            ask.append(createRow(content[block], permalink))
+                            rows.append(ask)
+                        })
+                    }
+                }
+            // if it is a reply
+                if (!layout.display) {
+                    // create styling for replies
+                      let answer = document.createElement('div')
+                            answer.classList.add('question', 'answer')
+                            let asker = document.createElement('a')
+                            asker.classList.add('asker')
+                            let askerIcon = document.createElement('img')
+                    // if answerer has a valid url
+                    if (trail) {
+                        asker.innerHTML = `${trail.name} answered`
+                        askerIcon.src = `https://api.tumblr.com/v2/blog/${trail.name}/avatar/64`
+                        answer.append(asker)
+                    }  else asker.innerHTML = 'original reply'
+                    
+                    content.map((block, index) => {
+                    // if block is not part of the original ask
+                        if (asks.indexOf(index) === -1) {
+                        // if the reply is part of a trail
+                          if (trail) {
+                            answer.append(createRow(block,permalink))
+                            
+                            rows.append(askerIcon, answer)   
+                          }
+                         // if reply is part of an original post 
+                          else {
+                              rows.append(createRow(block, permalink))
+                          }
+                        }
+                    })
+                }
+            }
+        })
+
+    } else {
+        content.map((block) => {
+            rows.append(createRow(block, permalink))
+        })
+    }
+    return rows
+}
+
+function postNotes(url) {
+    let postNotesData = ""
+    let postNotesDiv = document.createElement('div')
+    let httpRequest = new XMLHttpRequest()
+    httpRequest.onreadystatechange = function (data) {
+        postNotesData = data.srcElement.response
+    }
+    httpRequest.open("GET", url)
+    httpRequest.send()
+    postNotesDiv.innerHTML = postNotesData
+    return postNotesDiv
+}
+
+function createHeader(blogName, blogURL, active, tumblrmart_accessories) {
+    // create reblog header link and avatar img
+    let reblogHeader = document.createElement('a')
+    reblogHeader.href = blogURL
+    let userAvatar = `<img class="user-avatar" src="https://api.tumblr.com/v2/blog/${ blogName }/avatar/64">`
+    // will only show the image if a user is active
+    reblogHeader.innerHTML = `${active ? userAvatar : ''} <span class="active-${ active } usernames">${ blogName }</span>`
+    // determine if there are checkmarks
+    let checkmarks = tumblrmart_accessories?.blue_checkmark_count
+    if (checkmarks) {
+        let checks = ''
+        let checkmarkContainer = document.createElement('span')
+        checkmarkContainer.classList.add('checkmarks')
+        // checkmarks are 2 per purchase
+        let total = checkmarks * 2
+        // loop through each purchased checkmark + double it
+        for (var i = 0; i < checkmarks * 2; i++) {
+            // there are 12 official colors, if it is within the first 12, just use the index 
+            if (i <= 11) {
+                checks += `<span class="checkmark" style="left: calc( 0% + 80% * (${i + 1}/${ total })) "><img src="https://assets.tumblr.com/images/tumblrmart/badges/rainbow/${[ i + 1 ]}.png"></span>`
+            }
+            // if it's not, we do a little math
+            else {
+                // math is not my strength i apologize in advance
+                let math = (i + 1) - ((Math.ceil((i + 1) / 12) - 1) * 12)
+                checks += `<span class="checkmark" style="left: calc( 0% + 80%* (${i + 1}/${ total })) "><img src="https://assets.tumblr.com/images/tumblrmart/badges/rainbow/${ math }.png" ></span>`
+            }
+        }
+        // add the checkmarks to the reblog header
+        checkmarkContainer.innerHTML = checks
+        // if there's more than 12, add some styling to prevent them from overflowing
+        if (total > 12) {
+            reblogHeader.classList.add('big-checkmarks')
+        }
+        reblogHeader.append(checkmarkContainer)
+    }
+    // return reblog header content
+    return reblogHeader
+}
+
+// loop through each post in the array
+for (const post of posts) {
+    let npf = post.npf
+    let permalink = post.permalink
+    let article = document.createElement('article')
+    article.id = `post-${ post.id }`
+    // if there is a reblog trail 
+    if (npf.trail) {
+        npf.trail.map((trail, index) => {
+            // create header and content 
+            let trailed = document.createElement('div')
+            let header = document.createElement('div')
+            if (index === 0) {
+                header.classList.add('original-poster')
+            }
+            header.classList.add('reblog-header')
+            if (trail.blog) {
+                header.append(createHeader(trail.blog.name, trail.blog.url, trail.blog.can_be_followed, trail.blog.tumblrmart_accessories))
+            } else {
+                let brokenBlog = document.createElement('span')
+                brokenBlog.classList.add('broken-blog', 'usernames')
+                brokenBlog.innerHTML = trail.broken_blog_name
+                header.append(brokenBlog)
+            }
+            trailed.append(createRows(post.id, trail.content, trail.layout, permalink, trail.blog))
+            // add header and trail to the post element
+            article.append(header, trailed)
+        })
+    }
+    // if it is an original post  
+    if (npf.content.length > 0) {
+        let content = document.createElement('div')
+        let header = document.createElement('div')
+        header.classList.add('reblog-header', 'original-poster')
+        header.append(createHeader(user, `https://${ user }.tumblr.com`, true, null))
+        content.append(createRows(post.id, npf.content, npf.layout, permalink))
+        article.append(header, content)
+    }
+    // post info 
+    let postInfo = document.createElement('div')
+    // tags
+    if (post.tags) {
+         let tagged = document.createElement('div')
+        tagged.classList.add('tags')  
+        for (let tag of post.tags) {
+            let tagLink = document.createElement('span')
+            let tagContent = `<a href="/tagged/${ tag }">#${ tag }</a>`
+            tagLink.innerHTML = tagContent
+            tagged.append(tagLink)
+        }
+        article.append(tagged)
+    }
+    postInfo.classList.add('post-info')
+    let notecount = document.createElement('a')
+    notecount.href = permalink
+    notecount.innerHTML = `Posted ${post.date} with ${post.noteCount}`
+    postInfo.append(notecount)
+    article.append(postInfo)
+    if (permalink === window.location.href) {
+        pagination.append(postNotes(post.postNotes))
+    }
+    // append post element to container
+    container.append(article)
+}
+    </script>
+</html>
