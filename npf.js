@@ -1,6 +1,5 @@
 
 let container = document.getElementById('posts')
-let posts = new Array()
 let pagination = document.getElementById('post-pagination')
     
 // formats text blocks   
