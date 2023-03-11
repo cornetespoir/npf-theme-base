@@ -1,0 +1,139 @@
+<!-- 
+
+NPF theme prototype by eggdesign
+theme layout is based off of my base code
+
+-->
+<!DOCTYPE html> 
+<html> 
+    <head>
+     <link rel="shortcut icon" href="{Favicon}" />
+     <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+        <title>{Title}</title>
+        {block:Description}
+            <meta name="description" content="{MetaDescription}" />
+        {/block:Description}
+        {NewPostStyles}
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+      {block:Options}
+        <meta name="image:background" content="" />
+        <meta name="color:background" content="#f8f8f8" />
+        <meta name="color:text" content="#222" />
+        <meta name="color:border" content="#222"/>
+        <meta name="color:sidebar header" content="#facade" />
+        <meta name="color:posts" content="#fff" />
+        <meta name="color:links" content="#000" />
+        <meta name="if:full background" content="" />
+        <meta name="text:photoset gap" content= "0px" />
+    {/block:Options}
+    <link rel="stylesheet" type="text/css" href="https://assets.tumblr.com/fonts/favorit/stylesheet.css?v=1">
+    <link rel="stylesheet" type="text/css" href="https://cornetespoir.github.io/npf-theme-base/index.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <style>
+/* Theme Options */
+        :root {
+            --background-image: url({image:background});
+            --background-color: {color:background};
+            --spacing-sm: .6rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --posts: {color:posts};
+            --text: {color:text};
+            --borders: {color:border};
+            --links: {color:links};
+            --accent: {AccentColor};
+            --title-font: {TitleFont};
+            --gap: {text:photoset gap};
+            --header-image: url({headerImage});
+            --background-size: {block:iffullbackground} cover {/block:iffullbackground}{block:ifnotfullbackground} auto  {/block:ifnotfullbackground};
+}
+{CustomCSS}
+    </style>    
+    </head>
+    <body class="{block:homepage}home{/block:homepage}{block:tagpage}tag{/block:tagpage}{block:searchpage}search{/block:searchpage}{block:submitpage}submit-{/block:submitpage}{block:AskPage}ask{/block:AskPage}{block:permalinkpage}permalink{/block:permalinkpage}-page">
+<!-- main container -->    
+    <main class="flex">
+        <aside class="flex centered">
+            <div class="sidebar-container">
+<!-- global theme options/blog info -->            
+            <header class="flex centered {block:ShowHeaderImage}show-header{block:ShowHeaderImage}">
+                <img src="{portraiturl-96}" class="avatar {AvatarShape}">
+            </header>
+            {block:ShowDescription}
+            <div class="text-content">
+                {Description}
+            </div>
+            {/block:ShowDescription}
+            <div class="links text-content">
+                <a href="/">{lang:Home}</a>
+                {block:askenabled}
+                <a href="/ask">Ask</a>
+                {/block:askenabled}
+                {block:submissionsenabled}
+                <a href="/submit">Submit</a>
+                {/block:submissionsenabled}
+                <a href="/archive">Archive</a>
+                {block:HasPages}
+                    {block:Pages}
+                        <a href="{URL}">{Label}</a>
+                    {/block:Pages}
+                {/block:HasPages}
+                </div>
+            </div>
+        </aside>
+<!-- posts -->        
+        <section>
+        <div id="posts"></div>
+         {block:PermalinkPagination} 
+        <div id="post-pagination">
+        <div class="post-buttons">
+            {block:PreviousPost}
+            <a href="{PreviousPost}">Previous Post</a>
+            {/block:PreviousPost}
+            {block:NextPost}
+            <a href="{NextPost}">Next Post</a>
+            {/block:NextPost} 
+            </div>
+        </div>
+      {/block:PermalinkPagination}
+        {block:Pagination}
+            <div class="pagination flex centered">
+                {block:previouspage}
+                <a href="{previouspage}">Prev</a>
+                {/block:previouspage}
+                {block:nextpage}
+                <a href="{nextpage}">Next</a>
+                {/block:nextpage}
+            </div>
+        {/block:pagination}
+        </section> 
+    </main>
+</body>
+
+<script>
+let bodyElement = document.body.classList
+let user = '{name}'
+let posts = new Array()
+// create the post info
+    {block:Posts}
+    posts.push({
+        id: '{PostID}', 
+        // for ask and submit pages
+        inboxBody: `{Body}`,
+        // for post notes on permalink pages
+        postNotes: `{postNotesURL}`, 
+        {block:NoteCount}
+        // if you do not want "notes" to appear at the end, erase WithLabel
+        noteCount: `{NoteCountWithLabel}`, 
+        {/block:NoteCount}
+        permalink: `{Permalink}`,
+        npf: {NPF}, 
+        // if you want to change the date format, replace the TimeAgo block
+        date: `{TimeAgo}` 
+        {block:HasTags}, 
+        tags: [{block:Tags}`{Tag}`,{/block:Tags}]{/block:HasTags} 
+    })
+    {/block:Posts}
+    </script>
+<script src="https://cornetespoir.github.io/npf-theme-base/npf.js"></script>    
+</html>
