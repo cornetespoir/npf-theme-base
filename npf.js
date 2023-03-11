@@ -1,6 +1,3 @@
-let container = document.getElementById('posts')
-let pagination = document.getElementById('post-pagination')
-    
 // formats text blocks   
 function createText(content) {
     if (content.text === '') return ''
