@@ -1,8 +1,7 @@
 <!-- 
 
-NPF theme prototype
+NPF theme prototype by eggdesign
 theme layout is based off of my base code
-https://github.com/cornetespoir/basecode
 
 -->
 <!DOCTYPE html> 
@@ -25,6 +24,7 @@ https://github.com/cornetespoir/basecode
         <meta name="color:posts" content="#fff" />
         <meta name="color:links" content="#000" />
         <meta name="if:full background" content="" />
+        <meta name="text:photoset gap" content= "0px" />
     {/block:Options}
     <link rel="stylesheet" type="text/css" href="https://assets.tumblr.com/fonts/favorit/stylesheet.css?v=1">
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -43,6 +43,7 @@ https://github.com/cornetespoir/basecode
             --links: {color:links};
             --accent: {AccentColor};
             --title-font: {TitleFont};
+            --gap: {text:photoset gap};
             --header-image: url({headerImage});
         }
         
@@ -119,7 +120,7 @@ article video {
 }
  article, #post-pagination {
      background:var(--posts);
-     max-width:540px;
+     max-width:500px;
      width:90%;
      border:1px solid var(--borders);
      border-radius:var(--spacing-sm);
@@ -133,9 +134,25 @@ article video {
 #post-pagination {
     margin-top:0;
 }
+.post-buttons {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:0;
+    padding:var(--spacing-md);
+}
+
+ol.notes {
+    padding:0;
+    margin:0;
+}
  ol.notes li {
-     padding:10px;
+     padding:var(--spacing-md);
      list-style:none;
+}
+ol.notes li a {
+    padding:0;
 }
  ol.notes img {
      display:none;
@@ -364,10 +381,10 @@ article video {
     width:100%;
 }
 .row-size-3 > div {
-    width:calc(100% / 3);
+    width:calc((100% / 3) - var(--gap));
 }
 .row-size-2 > div {
-    width:50%;
+    width:calc(50% -  (var(--gap) / 2));
 }
 
 
@@ -375,6 +392,14 @@ article video {
     width:100%;
     height:100%;
     object-fit:cover;
+}
+
+.content-rows {
+    gap: var(--gap);
+}
+
+.content-rows + .content-rows {
+    margin-top:var(--gap);
 }
 
 .content-rows {
@@ -562,12 +587,14 @@ article p {
         <div id="posts"></div>
          {block:PermalinkPagination} 
         <div id="post-pagination">
+        <div class="post-buttons">
             {block:PreviousPost}
             <a href="{PreviousPost}">Previous Post</a>
             {/block:PreviousPost}
             {block:NextPost}
             <a href="{NextPost}">Next Post</a>
             {/block:NextPost} 
+            </div>
         </div>
       {/block:PermalinkPagination}
         {block:Pagination}
@@ -585,22 +612,32 @@ article p {
 </body>
 
 <script>
+let bodyElement = document.body.classList
 let user = '{name}'
-let container = document.getElementById('posts')
 let posts = new Array()
-let pagination = document.getElementById('post-pagination')
 // create the post info
     {block:Posts}
     posts.push({
         id: '{PostID}', 
-        postNotes: '{postNotesURL}', 
-        permalink: '{Permalink}', 
-        noteCount: '{NoteCountWithLabel}', 
+        // for ask and submit pages
+        inboxBody: `{Body}`,
+        // for post notes on permalink pages
+        postNotes: `{postNotesURL}`, 
+        {block:NoteCount}
+        // if you do not want "notes" to appear at the end, erase WithLabel
+        noteCount: `{NoteCountWithLabel}`, 
+        {/block:NoteCount}
+        permalink: `{Permalink}`,
         npf: {NPF}, 
-        date: '{TimeAgo}' {block:HasTags}, 
+        // if you want to change the date format, replace the TimeAgo block
+        date: `{TimeAgo}` 
+        {block:HasTags}, 
         tags: [{block:Tags}`{Tag}`,{/block:Tags}]{/block:HasTags} 
     })
     {/block:Posts}
+
+let container = document.getElementById('posts')
+let pagination = document.getElementById('post-pagination')
     
 // formats text blocks   
 function createText(content) {
@@ -999,16 +1036,25 @@ for (const post of posts) {
         article.append(tagged)
     }
     postInfo.classList.add('post-info')
+    if (post.noteCount) {
     let notecount = document.createElement('a')
     notecount.href = permalink
     notecount.innerHTML = `Posted ${post.date} with ${post.noteCount}`
     postInfo.append(notecount)
+    }
     article.append(postInfo)
     if (permalink === window.location.href) {
         pagination.append(postNotes(post.postNotes))
     }
+        // if ask or submit pages 
+    if (bodyElement.contains('askpermalink-page') || bodyElement.contains('submit-permalink-page')) {
+        let inbox = document.createElement('div')
+        inbox.classList.add('text-content')
+        inbox.innerHTML = post.inboxBody
+        article.append(inbox)
+    }
     // append post element to container
     container.append(article)
 }
-    </script>
+    </script>   
 </html>
