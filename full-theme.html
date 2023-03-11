@@ -620,7 +620,12 @@ let posts = new Array()
     posts.push({
         id: '{PostID}', 
         // for ask and submit pages
+        {block:AskPage}
         inboxBody: `{Body}`,
+        {/block:AskPage}
+        {block:SubmitPage}
+        inboxBody: `{Body}`,
+        {/block:SubmitPage}
         // for post notes on permalink pages
         postNotes: `{postNotesURL}`, 
         {block:NoteCount}
