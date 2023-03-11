@@ -1,4 +1,3 @@
-
 let container = document.getElementById('posts')
 let pagination = document.getElementById('post-pagination')
     
@@ -399,13 +398,22 @@ for (const post of posts) {
         article.append(tagged)
     }
     postInfo.classList.add('post-info')
+    if (post.noteCount) {
     let notecount = document.createElement('a')
     notecount.href = permalink
     notecount.innerHTML = `Posted ${post.date} with ${post.noteCount}`
     postInfo.append(notecount)
+    }
     article.append(postInfo)
     if (permalink === window.location.href) {
         pagination.append(postNotes(post.postNotes))
+    }
+        // if ask or submit pages 
+    if (bodyElement.contains('askpermalink-page') || bodyElement.contains('submit-permalink-page')) {
+        let inbox = document.createElement('div')
+        inbox.classList.add('text-content')
+        inbox.innerHTML = post.inboxBody
+        article.append(inbox)
     }
     // append post element to container
     container.append(article)
