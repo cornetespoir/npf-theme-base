@@ -114,6 +114,8 @@ theme layout is based off of my base code
 let bodyElement = document.body.classList
 let user = '{name}'
 let posts = new Array()
+let container = document.getElementById('posts')
+let pagination = document.getElementById('post-pagination')
 // create the post info
     {block:Posts}
     posts.push({
@@ -135,5 +137,5 @@ let posts = new Array()
     })
     {/block:Posts}
     </script>
-<script src="https://cornetespoir.github.io/npf-theme-base/npf.js"></script>    
+    <script src="https://cornetespoir.github.io/npf-theme-base/npf.js"></script>    
 </html>
