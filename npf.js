@@ -1,6 +1,6 @@
 // formats text blocks   
 function createText(content) {
-     let str =  content.text.replaceAll('<', '&lt;')
+    let str =  content.text.replaceAll('<', '&lt;')
     let texts = str.replaceAll('>', '&gt;')
     if (content.text === '') return ''
     let output = ""
