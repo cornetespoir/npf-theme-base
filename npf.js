@@ -133,6 +133,21 @@ function createLink(content) {
     return link
 }
 
+// create images (with lightbox support 
+
+function createImage(media) {
+     let image = document.createElement('img')
+     let anchor = document.createElement('a')
+     image.src = media.url
+     anchor.classList.add('post_media_photo_anchor')
+     anchor.setAttribute('data-big-photo', media.url)
+     anchor.setAttribute('data-big-photo-height', media.height)
+     anchor.setAttribute('data-big-photo-width', media.width)
+     image.setAttribute('srcset', media.url)
+     image.classList.add('post_media_photo', 'image')
+     anchor.append(image)
+     return anchor
+}
 
 // create content insie of each row  
 function createRow(content, permalink) {
@@ -146,11 +161,7 @@ function createRow(content, permalink) {
             break;
 
         case 'image':
-            let image = document.createElement('img')
-            let anchor = document.createElement('a')
-            image.src = content.media[0].url
-            anchor.append(image)
-            return anchor
+            return createImage(content.media[0])
             break;
 
         case 'audio':
