@@ -1,12 +1,14 @@
 // formats text blocks   
 function createText(content) {
+     let str =  content.text.replaceAll('<', '&lt;')
+    let texts = str.replaceAll('>', '&gt;')
     if (content.text === '') return ''
     let output = ""
     // if there is formatted content
     if (content.formatting) {
-        let characters = Array.from(content.text.split(''))
+        let characters = Array.from(texts.split(''))
         for (const [i, text] of characters.entries()) {
-            const char = content.text[i]
+            const char = texts[i]
             // look for end of format
             const endFormatTypes = content.formatting.filter((f) => f.end === i);
             // for each type, create a closing tag
@@ -58,7 +60,7 @@ function createText(content) {
     }
     // if no formatting, just output the text 
     else {
-        output += content.text
+        output += texts
     }
     // might scrap this part
     if (content.subtype === "unordered-list-item") {
@@ -75,7 +77,6 @@ function createText(content) {
         return p
     }
 }
-
 
 // create audio posts 
 function createAudio(content) {
