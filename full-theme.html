@@ -616,28 +616,28 @@ let bodyElement = document.body.classList
 let user = '{name}'
 let posts = new Array()
 // create the post info
-    {block:Posts}
+   {block:Posts}
     posts.push({
-        id: '{PostID}', 
+        id: {JSPostID}, 
         // for ask and submit pages
         {block:AskPage}
-        inboxBody: `{Body}`,
+        inboxBody: {JSBody},
         {/block:AskPage}
         {block:SubmitPage}
-        inboxBody: `{Body}`,
+        inboxBody: {JSBody},
         {/block:SubmitPage}
         // for post notes on permalink pages
-        postNotes: `{postNotesURL}`, 
-        {block:NoteCount}
+        postNotes: {JSPostNotesURL}, 
+        {block:Date}
         // if you do not want "notes" to appear at the end, erase WithLabel
-        noteCount: `{NoteCountWithLabel}`, 
-        {/block:NoteCount}
-        permalink: `{Permalink}`,
-        npf: {NPF}, 
+        noteCount: {JSNoteCountWithLabel}, 
+        {/block:Date}
+        permalink: {JSPermalink},
+        npf: JSON.parse({JSNPF}), 
         // if you want to change the date format, replace the TimeAgo block
-        date: `{TimeAgo}` 
+        date: {JSTimeAgo} 
         {block:HasTags}, 
-        tags: [{block:Tags}`{Tag}`,{/block:Tags}]{/block:HasTags} 
+        tags: [{block:Tags}{JSTag},{/block:Tags}]{/block:HasTags} 
     })
     {/block:Posts}
 
@@ -646,13 +646,17 @@ let pagination = document.getElementById('post-pagination')
     
 // formats text blocks   
 function createText(content) {
+    // replace HTML tags
+    let str =  content.text.replaceAll('<', '&lt;')
+    let texts = str.replaceAll('>', '&gt;')
+    // if there is no text, don't return anything else
     if (content.text === '') return ''
     let output = ""
     // if there is formatted content
     if (content.formatting) {
-        let characters = Array.from(content.text.split(''))
+        let characters = Array.from(texts.split(''))
         for (const [i, text] of characters.entries()) {
-            const char = content.text[i]
+            const char = texts[i]
             // look for end of format
             const endFormatTypes = content.formatting.filter((f) => f.end === i);
             // for each type, create a closing tag
@@ -704,7 +708,7 @@ function createText(content) {
     }
     // if no formatting, just output the text 
     else {
-        output += content.text
+        output += texts
     }
     // might scrap this part
     if (content.subtype === "unordered-list-item") {
