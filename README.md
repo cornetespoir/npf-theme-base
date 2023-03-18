@@ -72,7 +72,7 @@ I have heavily commented the script to hopefully make it easier for you to edit.
         // if you do not want "notes" to appear at the end, erase WithLabel
         noteCount: {JSNoteCountWithLabel}, 
         {/block:NoteCount}
-        permalink: `{JSPermalink}`,
+        permalink: {JSPermalink},
         npf: JSON.parse({JSNPF}), 
         // if you want to change the date format, replace the TimeAgo block
         date: {JSTimeAgo} 
