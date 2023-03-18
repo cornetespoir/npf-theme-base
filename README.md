@@ -63,21 +63,21 @@ I have heavily commented the script to hopefully make it easier for you to edit.
 // create the post info
   {block:Posts}
     posts.push({
-        id: '{PostID}', 
+        id: {JSPostID}, 
         // for ask and submit pages
-        inboxBody: `{Body}`,
+        inboxBody: {JSBody},
         // for post notes on permalink pages
-        postNotes: `{postNotesURL}`, 
+        postNotes: {JSPostNotesURL}, 
         {block:NoteCount}
         // if you do not want "notes" to appear at the end, erase WithLabel
-        noteCount: `{NoteCountWithLabel}`, 
+        noteCount: {JSNoteCountWithLabel}, 
         {/block:NoteCount}
-        permalink: `{Permalink}`,
-        npf: {NPF}, 
+        permalink: `{JSPermalink}`,
+        npf: JSON.parse({JSNPF}), 
         // if you want to change the date format, replace the TimeAgo block
-        date: `{TimeAgo}` 
+        date: {JSTimeAgo} 
         {block:HasTags}, 
-        tags: [{block:Tags}`{Tag}`,{/block:Tags}]{/block:HasTags} 
+        tags: [{block:Tags}{JSTag},{/block:Tags}]{/block:HasTags} 
     })
   {/block:Posts}
 ```
