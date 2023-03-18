@@ -635,7 +635,7 @@ let pagination = document.getElementById('post-pagination')
         noteCount: `{NoteCountWithLabel}`, 
         {/block:NoteCount}
         permalink: `{Permalink}`,
-        npf: {NPF}, 
+        npf: JSON.parse({JSNPF}), 
         // if you want to change the date format, replace the TimeAgo block
         date: `{TimeAgo}` 
         {block:HasTags}, 
