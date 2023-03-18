@@ -119,26 +119,26 @@ let pagination = document.getElementById('post-pagination')
 // create the post info
    {block:Posts}
     posts.push({
-        id: '{PostID}', 
+        id: {JSPostID}, 
         // for ask and submit pages
         {block:AskPage}
-        inboxBody: `{Body}`,
+        inboxBody: {JSBody},
         {/block:AskPage}
         {block:SubmitPage}
-        inboxBody: `{Body}`,
+        inboxBody: {JSBody},
         {/block:SubmitPage}
         // for post notes on permalink pages
-        postNotes: `{postNotesURL}`, 
-        {block:NoteCount}
+        postNotes: {JSPostNotesURL}, 
+        {block:Date}
         // if you do not want "notes" to appear at the end, erase WithLabel
-        noteCount: `{NoteCountWithLabel}`, 
-        {/block:NoteCount}
-        permalink: `{Permalink}`,
-        npf: {NPF}, 
+        noteCount: {JSNoteCountWithLabel}, 
+        {/block:Date}
+        permalink: {JSPermalink},
+        npf: JSON.parse({JSNPF}), 
         // if you want to change the date format, replace the TimeAgo block
-        date: `{TimeAgo}` 
+        date: {JSTimeAgo} 
         {block:HasTags}, 
-        tags: [{block:Tags}`{Tag}`,{/block:Tags}]{/block:HasTags} 
+        tags: [{block:Tags}{JSTag},{/block:Tags}]{/block:HasTags} 
     })
     {/block:Posts}
     </script>
