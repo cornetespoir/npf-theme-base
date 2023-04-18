@@ -6,7 +6,12 @@ File overview
 
 - Use [reverse-compatible-template.html](https://github.com/cornetespoir/npf-theme-base/blob/main/reverese-compatible-template.html) if you want to use the HTML blocks *and* have post styling be consistent with legacy post types.
 
-### all the other files will not be using the post HTML blocks and rely on the JSON data from the NPF variable
+[preview for the HTML blocks and legacy style version of the theme](https://npftemplate.tumblr.com/)
+
+#### all of the other files will not be using the post HTML blocks and rely on the JSON data from the NPF variable
+
+[preview for the NPF variable only version](https://npfbase.tumblr.com)
+
 - Use [full-theme.html](https://github.com/cornetespoir/npf-theme-base/blob/main/full-theme.html) if you intend on editing the JS and/or CSS 
 - Use [theme.html](https://github.com/cornetespoir/npf-theme-base/blob/main/theme.html) if you do not want to edit the JS, but do want to edit the CSS
 - If you only want to try the JS I wrote for making posts in your own theme, use [npf.js](https://github.com/cornetespoir/npf-theme-base/blob/main/npf.js) and follow the guide below. 
