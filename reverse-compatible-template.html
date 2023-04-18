@@ -410,8 +410,7 @@ for (const post of posts) {
           // assign various post types based on NPF data
             switch (npf.trail[0]?.content[0]?.type ?? npf.content[0].type) {
             case 'image':
-               updateTypes('image', article)
-               article.classList.add('photos-post')
+               updateTypes('photos', article)
                if (article.querySelector('.npf_row') == null) {
                   caption.prepend(article.querySelector('figure'))
                }
