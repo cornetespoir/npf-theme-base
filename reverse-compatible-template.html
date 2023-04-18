@@ -1,0 +1,477 @@
+<!-- 
+
+Simple template for making npf posts match legacy post styles
+
+-->
+<!DOCTYPE html> 
+<html> 
+    <head>
+     <link rel="shortcut icon" href="{Favicon}" />
+     <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+        <title>{Title}</title>
+        {block:Description}
+            <meta name="description" content="{MetaDescription}" />
+        {/block:Description}
+        {NewPostStyles}
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        <link rel="stylesheet" type="text/css" href="https://assets.tumblr.com/fonts/favorit/stylesheet.css?v=1">
+      {block:Options}
+        <meta name="image:background" content="" />
+        <meta name="color:background" content="#f8f8f8" />
+        <meta name="color:posts" content="#fff" />
+        <meta name="color:text" content="#222" />
+        <meta name="color:links" content="#222" />
+        <meta name="color:border" content="#222" />
+        <meta name="if:full background" content="" />
+      {/block:Options}
+    
+    <style>
+/* Theme Options */
+        :root {
+            --background-image: url({image:background});
+            --background-color: {color:background};
+            --spacing: 1rem;
+            --posts: {color:posts};
+            --accent: {AccentColor};
+            --text: {color:text};
+            --borders: {color:border};
+            --links: {color:links};
+            --title-font: {TitleFont}
+            --header-image: url({HeaderImage});
+        }
+ * {
+     box-sizing:border-box;
+}
+ body {
+     margin: 0;
+     background-color: var(--background-color);
+     background-image: var(--background-image);
+     {block:iffullbackground}
+     background-size: cover;
+     {/block:iffullbackground}
+     background-attachment: fixed;
+     font-family: Favorit, Helvetica, sans-serif;
+     word-wrap: break-word;
+     font-size: 16px;
+}
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.centered {
+	align-items: center;
+	justify-content: center;
+}
+
+.align-center {
+	align-items: center;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.sr-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+main {
+	width: 100%;
+	margin: auto;
+	max-width: 1230px;
+	justify-content: space-around;
+	align-items: flex-start;
+}
+
+section {
+	width: calc(100% - 400px);
+}
+
+.info,
+.npf-link-block,
+.answer,
+.tags,
+.reblog-header,
+.quote,
+.question,
+.replies,
+.source,
+.pagination,
+article h1,
+article h2 {
+	padding: var(--spacing);
+}
+
+.question,
+.answer {
+	margin: var(--spacing);
+	border-radius: .2rem;
+	border: 1px solid var(--borders);
+}
+
+.tags {
+	padding-top: 0;
+}
+
+.spotify_audio_player,
+article iframe[src*='soundcloud'] {
+	max-height: calc(170px + var(--spacing));
+	border: 0;
+	padding: var(--spacing);
+	padding-bottom: 0;
+}
+
+.npf-link-block {
+	margin: var(--spacing) !important;
+}
+
+.caption p {
+	padding: var(--spacing);
+	padding-bottom: 0;
+	margin: 0;
+}
+
+.caption:last-child p,
+.reblog-content p:last-of-type {
+	padding-bottom: var(--spacing);
+}
+
+.reblog-header img {
+	max-width: 30px;
+	margin-right: .4rem;
+	border-radius: .2rem;
+}
+
+.reblog-header:is(:not(.original)) {
+	border-top: 1px solid var(--borders);
+}
+
+.reblog-header,
+.reblog-content {
+	padding-bottom: 0;
+}
+
+p:empty {
+	display: none;
+}
+
+.info,
+.like-and-reblog {
+	justify-content: space-between;
+}
+
+.pagination {
+	justify-content: space-around;
+}
+
+.info a {
+	color: var(--info-text);
+}
+
+.like-and-reblog {
+	width: 50px;
+	align-items: center;
+}
+
+article h1 {
+	margin: 0;
+	font-size: 2rem;
+}
+
+article,
+.pagination {
+	max-width: 500px;
+	background: var(--posts);
+	width: 100%;
+	border: 1px solid var(--borders);
+	border-radius: .2rem;
+	margin: calc(var(--spacing) * 4) auto;
+}
+
+ol.notes li {
+	padding: 10px;
+}
+
+ol.notes img {
+	display: none;
+}
+
+article img {
+	display: block;
+}
+
+article iframe,
+article img {
+	max-width: 100%;
+}
+
+a {
+	text-decoration: none;
+	color: var(--links);
+}
+
+blockquote {
+    padding: var(--spacing);
+	border-left: 2px solid var(--borders);
+}
+
+blockquote p {
+    padding: 0!important;
+}
+@media only screen and (max-width: 1100px) {
+	section {
+		width: 100%;
+	}
+
+	article {
+		margin: 100px auto;
+	}
+}
+    {CustomCSS}
+    </style>    
+    </head>
+    <body class="{block:homepage}home{/block:homepage}{block:tagpage}tag{/block:tagpage}{block:searchpage}search{/block:searchpage}{block:submitpage}submit-{/block:submitpage}{block:AskPage}ask{/block:AskPage}-page">
+
+<!-- main container -->    
+    <main class="flex">
+<!-- posts -->        
+        <section>
+        {block:Posts}
+        <article id="post-{PostID}" class="{posttype}-post posts {TagsAsClasses}">
+        {block:Photo}
+            <div class="legacy-photo"><img src="{PhotoURL-HighRes}" alt="{photoalt}" class="photos"></div>
+        {/block:Photo}
+
+        {block:Photoset}
+           <div class="legacy-photoset">{Photoset}</div> 
+        {/block:Photoset}
+            
+        {block:Panorama}
+            <div class="legacy-photo"><img src="{photourl-panorama}" alt="{photoalt}"></div>
+        {/block:Panorama}
+        
+<!-- quote posts -->            
+        {block:Quote}
+            <div class="quote">
+                "{Quote}"
+            </div>
+            <div class="source">
+                -{Source}
+            </div>
+        {/block:Quote}
+        
+<!-- chat posts -->            
+        {block:Chat}
+            <ul class="chat">
+                {block:Lines}
+                    <li>
+                        {block:Label}{Label}{/block:Label} 
+                        {Line}
+                    </li>
+                {/block:Lines}
+            </ul>
+        {/block:Chat}
+        {block:link}
+            <div class="npf-link-block">
+                <a href="{URL}">
+                    {Name}
+                </a>
+            </div>
+        {/block:link}
+        {block:Video}
+            {Video-500}
+        {/block:Video}
+        {block:Audio}
+            {audioembed}
+        {/block:Audio}         
+        {block:Answer}
+            <div class="question">
+                {Asker} asked: {Question}
+            </div>
+            {block:Answerer}
+            <div class="answer">
+                {Answerer} answered: {Answer}
+            </div>
+            {/block:Answerer}
+           {block:NotReblog}
+            <div class="replies">
+                {Replies}
+            </div>
+           {/block:NotReblog}
+        {/block:Answer}
+        <div class="caption {block:notreblog} original-post {/block:notreblog}">
+            {block:Text}
+                {block:Title}<h2>{Title}</h2>{/block:Title}
+            {/block:Text}
+            {block:notreblog}
+            {block:caption}{Caption}{/block:caption}
+            {block:Text}{body}{/block:Text}
+            {/block:notreblog}
+            {block:Rebloggedfrom}
+                {block:Reblogs}
+                <div class="reblogs">
+                    <div class="reblog-header {block:IsOriginalEntry}original{/block:IsOriginalEntry} flex align-center">
+                        <a href="{permalink}" target="_blank"><img src="{PortraitURL-64}" alt="{username}'s avatar"></a>
+                        <a href="{permalink}" target="_blank" {block:isdeactivated}class="inactive"{/block:isdeactivated}>
+                            {username}
+                        </a>
+                    </div>
+                    <div class="reblog-content">
+                        {Body}
+                    </div>
+                </div>
+                {/block:Reblogs}
+            {/block:RebloggedFrom}
+        </div>
+        {block:Date}
+            <div class="info flex align-center">
+                <div class="perma-info">
+                    <a href="/day/{Year}/{MonthNumberWithZero}/{dayofmonthwithzero}">Posted on {ShortMonth} {DayofMonth}, {Year} </a>
+                  with
+	                <a href="{permalink}">{NoteCountWithLabel}</a>
+	            {block:permalinkpage}
+                <br>
+                {block:RebloggedFrom}
+                    <a href="{reblogparenturl}">
+                        from {reblogparentname}
+                    </a> 
+                    <a href="{reblogrooturl}">
+                        posted by {reblogrootname} 
+                    </a>
+                {/block:RebloggedFrom}
+                {/block:permalinkpage}
+            </div>
+            <div class="like-and-reblog flex align-center">    
+                {ReblogButton} {LikeButton}
+            </div>
+            </div>
+        {/block:Date}
+        {block:Hastags}
+            <div class="tags">
+                {block:Tags}
+                <a href="{TagURL}">#{Tag}</a>
+                {/block:Tags}
+            </div>
+        {/block:Hastags}
+        {PostNotes}
+        </article>
+      {/block:Posts}
+      {block:Pagination}
+            <div class="pagination flex centered">
+                {block:previouspage}
+                <a href="{previouspage}">Prev</a>
+                {/block:previouspage}
+                {block:nextpage}
+                <a href="{nextpage}">Next</a>
+                {/block:nextpage}
+            </div>
+            {/block:pagination}
+        </section> 
+    </main>
+</body>
+<script>
+// remove empty p tags
+for (const p of document.querySelectorAll('p')) {
+    if (p.innerHTML.trim() === '') {
+       p.remove()
+    }
+}
+// create posts array
+let posts = []
+{block:Posts} 
+    posts.push({ npf: JSON.parse({JSNPF}), id: {JSPostId}}) 
+{/block:Posts}
+
+//function for updating post types 
+function updateTypes(type, article) {
+    article.classList.remove('text-post')
+    article.classList.add(`${ type }-post`, 'npf-post')
+}
+
+// loop through array to get each post
+for (const post of posts) {
+   let npf = post.npf
+   let article = document.getElementById(`post-${post.id}`)
+   // select captions that have something in them
+   let caption = article.querySelector('.caption:is(:not(:empty))')
+   if (caption != null && article.classList.contains('text-post')) {
+      // if content
+      if (npf.trail.length || npf.content.length) {
+          // assign various post types based on NPF data
+            switch (npf.trail[0]?.content[0]?.type ?? npf.content[0].type) {
+            case 'image':
+               updateTypes('image', article)
+               article.classList.add('photos-post')
+               if (article.querySelector('.npf_row') == null) {
+                  caption.prepend(article.querySelector('figure'))
+               }
+               break
+            case 'video':
+               updateTypes('video', article)
+               let video = article.querySelector('figure')
+               caption.prepend(video)
+               break
+            case 'link':
+              updateTypes('link', article)
+            case 'audio':
+               updateTypes('audio', article)
+                break
+            case 'quote':
+                updateTypes('quote', article)
+            }
+          
+         // if there are photos
+         if (article.classList.contains('photos-post')) {
+            let photoset = document.createElement('div')
+            photoset.classList.add('npf-photos')
+            caption.prepend(photoset)
+            // find where a photoset would be split up by another content block
+            let photoBreak = article.querySelector('.reblog-content > *:is(:not(.npf_row))')
+            let elements = []
+            if (photoBreak) {
+               let prevElement = photoBreak.parentNode.firstElementChild
+               while (prevElement !== photoBreak) {
+                  elements.push(prevElement)
+                  prevElement = prevElement.nextElementSibling
+               }
+            }
+            
+            // if there is nothing that breaks up the photoset, select all rows
+            else {
+               elements = article.querySelectorAll('.npf_row')
+            }
+            
+            // move each row to the top
+            for (const el of elements) {
+               photoset.append(el)
+            }
+            if (article.querySelectorAll('.npf_row').length > 1) {
+                updateTypes('photoset', article)
+            }
+            else {
+                updateTypes('photo', article)
+            }
+         }
+         
+         // clean up any potential stray reblog headers
+         let reblogHeader = article.querySelector('.reblog-header')
+         let reblogContent = article.querySelector('.reblog-content')
+         if (reblogHeader?.nextElementSibling === reblogContent && reblogContent?.childElementCount === 0) {
+            reblogHeader.remove()
+            reblogContent.remove()
+         }
+      }
+   }
+}
+</script>
+</html>
