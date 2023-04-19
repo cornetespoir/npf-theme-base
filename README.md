@@ -4,7 +4,7 @@ A basic theme using the NPF variable
 File overview
 
 
-- Use [reverse-compatible-template.html](https://github.com/cornetespoir/npf-theme-base/blob/main/reverese-compatible-template.html) if you want to use the HTML blocks *and* have post styling be consistent with legacy post types.
+- Use [reverse-compatible-template.html](https://github.com/cornetespoir/npf-theme-base/blob/main/reverse-compatible-template.html) if you want to use the HTML blocks *and* have post styling be consistent with legacy post types.
 
 [preview for the HTML blocks and legacy style version of the theme](https://npftemplate.tumblr.com/)
 
