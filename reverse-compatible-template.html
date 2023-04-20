@@ -97,23 +97,23 @@ section {
 	width: calc(100% - 400px);
 }
 
-.info,
+article .info,
 .npf-link-block,
-.answer,
+article .answer,
 .tags,
 .reblog-header,
-.quote,
-.question,
-.replies,
-.source,
+article .quote,
+article .question,
+article .replies,
+article .source,
 .pagination,
 article h1,
 article h2 {
 	padding: var(--spacing);
 }
 
-.question,
-.answer {
+article .question,
+article .answer {
 	margin: var(--spacing);
 	border-radius: .2rem;
 	border: 1px solid var(--borders);
@@ -135,7 +135,7 @@ article iframe[src*='soundcloud'] {
 	margin: var(--spacing) !important;
 }
 
-.caption p {
+article .caption p {
 	padding: var(--spacing);
 	padding-bottom: 0;
 	margin: 0;
@@ -165,7 +165,7 @@ p:empty {
 	display: none;
 }
 
-.info,
+article .info,
 .like-and-reblog {
 	justify-content: space-between;
 }
@@ -174,7 +174,7 @@ p:empty {
 	justify-content: space-around;
 }
 
-.info a {
+article .info a {
 	color: var(--info-text);
 }
 
@@ -247,7 +247,7 @@ blockquote p {
 <!-- posts -->        
         <section>
         {block:Posts}
-        <article id="post-{PostID}" class="{posttype}-post posts {TagsAsClasses}">
+        <article id="post-{PostID}" class="{posttype}-post posts">
         {block:Photo}
             <div class="legacy-photo"><img src="{PhotoURL-HighRes}" alt="{photoalt}" class="photos"></div>
         {/block:Photo}
@@ -405,7 +405,7 @@ for (const post of posts) {
    // select captions that have something in them
    let caption = article.querySelector('.caption:is(:not(:empty))')
    if (caption != null && article.classList.contains('text-post')) {
-      // if content
+      // if content exists
       if (npf.trail.length || npf.content.length) {
           // assign various post types based on NPF data
             switch (npf.trail[0]?.content[0]?.type ?? npf.content[0].type) {
@@ -444,12 +444,10 @@ for (const post of posts) {
                   prevElement = prevElement.nextElementSibling
                }
             }
-            
             // if there is nothing that breaks up the photoset, select all rows
             else {
                elements = article.querySelectorAll('.npf_row')
             }
-            
             // move each row to the top
             for (const el of elements) {
                photoset.append(el)
