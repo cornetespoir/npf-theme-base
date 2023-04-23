@@ -141,6 +141,10 @@ article .caption p {
 	margin: 0;
 }
 
+.reblog-content {
+    white-space: pre-wrap;
+}
+
 .caption:last-child p,
 .reblog-content p:last-of-type {
 	padding-bottom: var(--spacing);
@@ -237,6 +241,7 @@ blockquote p {
 		margin: 100px auto;
 	}
 }
+
     {CustomCSS}
     </style>    
     </head>
@@ -435,7 +440,8 @@ for (const post of posts) {
             photoset.classList.add('npf-photos')
             caption.prepend(photoset)
             // find where a photoset would be split up by another content block
-            let photoBreak = article.querySelector('.reblog-content > *:is(:not(.npf_row))')
+            let photoBreak = article.querySelector('.reblog-content > *:is(:not(.npf_row))') && article.querySelector('.reblog-content > *:is(:not(figure))')
+            console.log(photoBreak)
             let elements = []
             if (photoBreak) {
                let prevElement = photoBreak.parentNode.firstElementChild
