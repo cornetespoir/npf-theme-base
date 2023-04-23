@@ -183,8 +183,10 @@ function createRow(content, permalink) {
             } else {
                 let video = document.createElement('iframe')
                 video.classList.add('video-iframe')
-                video.src = content.embed_iframe.url
-                video.style.aspectRatio = `${content.embed_iframe.width} / ${content.embed_iframe.height}`
+                video.src = content.embed_iframe?.url ?? content.media.url
+                let videoWidth = content.embed_iframe?.width ?? content.media.width
+                let videoHeight = content.embed_iframe?.height ?? content.media.height
+                video.style.aspectRatio = `${ videoWidth } / ${ videoHeight }`
                 return video
             }
             break;
