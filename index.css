@@ -436,8 +436,7 @@ article p {
 }
 
 .video-iframe {
-    width:calc(100% - (var(--spacing-md) * 2));
-    margin:var(--spacing-md);
+    width:100%;
     border:0;
 }
 
