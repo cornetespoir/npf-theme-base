@@ -440,7 +440,7 @@ for (const post of posts) {
             photoset.classList.add('npf-photos')
             caption.prepend(photoset)
             // find where a photoset would be split up by another content block
-            let photoBreak = article.querySelector('.reblog-content > *:is(:not(.npf_row))') || article.querySelector('.reblog-content > *:is(:not(figure))')
+            let photoBreak = article.querySelector('.reblog-content p, .reblog-content h1, .reblog-content h2')
             let elements = []
             if (photoBreak) {
                let prevElement = photoBreak.parentNode.firstElementChild
